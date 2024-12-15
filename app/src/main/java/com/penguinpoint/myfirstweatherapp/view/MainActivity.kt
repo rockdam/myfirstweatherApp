@@ -65,7 +65,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    // 화씨를 섭씨로 변환하는 함수
+    private fun fahrenheitToCelsius(fahrenheit: Double): Double {
+        return ((fahrenheit - 32) * 5 / 9).also {
+            Log.d("Temperature", "Converting ${fahrenheit}°F to ${String.format("%.1f", it)}°C")
+        }
+    }
     // 날씨 히스토리 데이터 관찰
     private fun observeWeatherHistory() {
         viewModel.weatherHistory.observe(this) { historyList ->

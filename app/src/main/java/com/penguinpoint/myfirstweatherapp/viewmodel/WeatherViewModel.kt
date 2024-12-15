@@ -34,19 +34,22 @@ class WeatherViewModel : ViewModel() {
             try {
                 Log.d("MainActivity", "Setting up button click listener")
 
-
                 val response = repository.getWeatherData(city)
-                _currentWeather.value = response
+                // 섭씨로 변환된 온도를 가진 새로운 WeatherResponse 객체 생성
+                val convertedResponse = response.copy(
+                    main = response.main.copy(
+                        temp = convertToCelsius(response.main.temp)
+                    )
+                )
+                _currentWeather.value = convertedResponse
 
-                val celsius = convertToCelsius(response.main.temp)
-
-                // 히스토리 아이템 생성 (섭씨 온도 사용)
+                // 히스토리 아이템 생성 (섭씨로 변환된 온도 사용)
                 val historyItem = WeatherHistory(
                     timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                         .format(Date()),
-                    temperature = celsius,  // 변환된 섭씨 온도
-                    description = response.weather.firstOrNull()?.description ?: "",
-                    city = response.name
+                    temperature = convertedResponse.main.temp,  // 이미 섭씨로 변환된 온도
+                    description = convertedResponse.weather.firstOrNull()?.description ?: "",
+                    city = convertedResponse.name
                 )
 
                 // 히스토리 업데이트
