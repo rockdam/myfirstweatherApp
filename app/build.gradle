@@ -1,0 +1,89 @@
+//build.gradle은 우리 앱의 '조리법(레시피)' 같은 파일
+//🍳 요리를 할 때를 생각해보세요:
+//
+// 1. 어떤 재료가 필요한지 (종속성)
+//2. 어떤 도구를 쓸지 (개발 도구 버전)
+//3. 어떤 순서로 만들지 (빌드 설정)
+//
+
+
+//
+//안드로이드 스튜디오에서 '빌드'할 때:
+//
+//▶️ (실행) 버튼을 누르거나
+//🐘 (Sync Project with Gradle Files) 버튼을 누르면
+//
+// 안드로이드 스튜디오가 build.gradle 파일을 읽고:
+//
+//1. 필요한 재료(라이브러리)들을 다운로드하고
+//2. 코드를 컴파일하고
+//3. 리소스(이미지, 문자열 등)를 포함시키고
+//최종적으로 실행 가능한 앱을 만들어냅니다
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
+
+android {
+    // 우리 앱의 기본 정보
+
+    namespace 'com.penguinpoint.myfirstweatherapp'
+    compileSdk 34  // 안드로이드 버전
+
+    defaultConfig {
+        applicationId "com.penguinpoint.myfirstweatherapp" // 앱의 고유 이름
+        minSdk 24 // 최소한 필요한 안드로이드 버전
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        viewBinding true  // 뷰 바인딩
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    // 앱에 필요한 재료들
+
+
+
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.material
+    implementation libs.androidx.activity
+    implementation libs.androidx.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+    // ViewModel과 LiveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+}

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MyFirstWeatherApp</string>
+    <string name="temperature_format">%.1f°C</string>
+</resources>
